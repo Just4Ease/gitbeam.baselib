@@ -2,28 +2,24 @@ syntax = "proto3";
 package gitRepos;
 option go_package = ".;gitRepos";
 
-import "google/protobuf/timestamp.proto";
-
 // Define the Repo message
 message Repo {
-  google.protobuf.Timestamp timeCreated = 1;
-  google.protobuf.Timestamp timeUpdated = 2;
+  string timeCreated = 1;
+  string timeUpdated = 2;
   string name = 3;
   string owner = 4;
   string description = 5;
   string url = 6;
   string languages = 7;
-  int32 forkCount = 8;
-  int32 starCount = 9;
-  int32 openIssues = 10;
-  int32 watchersCount = 11;
-  map<string, string> meta = 12; // Assuming `any` can be represented as a map of strings
+  int64 forkCount = 8;
+  int64 starCount = 9;
+  int64 openIssues = 10;
+  int64 watchersCount = 11;
+  string meta = 12;
 }
 
-// Request message for listGitRepositories
-message ListGitRepositoriesRequest {
-  // Add any necessary fields, e.g., pagination
-}
+
+message Void {}
 
 // Response message for listGitRepositories
 message ListGitRepositoriesResponse {
@@ -36,13 +32,15 @@ message GetGitRepoRequest {
   string repoName = 2;
 }
 
-// Response message for getGitRepo
-message GetGitRepoResponse {
-  Repo repo = 1;
+message HealthCheckResponse {
+  int64 code = 1;
 }
+
 
 // Define the GitService
 service GitBeamRepositoryService {
-  rpc ListGitRepositories (ListGitRepositoriesRequest) returns (ListGitRepositoriesResponse){}
-  rpc GetGitRepo (GetGitRepoRequest) returns (GetGitRepoResponse){}
+  rpc ListGitRepositories (Void) returns (ListGitRepositoriesResponse){}
+  rpc GetGitRepo (GetGitRepoRequest) returns (Repo){}
+  rpc HealthCheck(Void) returns(HealthCheckResponse){}
 }
+
