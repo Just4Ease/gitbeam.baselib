@@ -1,5 +1,6 @@
-package gitRepos;
 syntax = "proto3";
+package gitRepos;
+option go_package = ".;gitRepos";
 
 import "google/protobuf/timestamp.proto";
 
@@ -31,8 +32,8 @@ message ListGitRepositoriesResponse {
 
 // Request message for getGitRepo
 message GetGitRepoRequest {
-  required string ownerName = 1;
-  required string repoName = 2;
+  string ownerName = 1;
+  string repoName = 2;
 }
 
 // Response message for getGitRepo
@@ -41,7 +42,7 @@ message GetGitRepoResponse {
 }
 
 // Define the GitService
-service GitService {
-  rpc ListGitRepositories (ListGitRepositoriesRequest) returns (ListGitRepositoriesResponse);
-  rpc GetGitRepo (GetGitRepoRequest) returns (GetGitRepoResponse);
+service GitBeamRepositoryService {
+  rpc ListGitRepositories (ListGitRepositoriesRequest) returns (ListGitRepositoriesResponse){}
+  rpc GetGitRepo (GetGitRepoRequest) returns (GetGitRepoResponse){}
 }
