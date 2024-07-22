@@ -1,0 +1,47 @@
+package gitRepos;
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+// Define the Repo message
+message Repo {
+  google.protobuf.Timestamp timeCreated = 1;
+  google.protobuf.Timestamp timeUpdated = 2;
+  string name = 3;
+  string owner = 4;
+  string description = 5;
+  string url = 6;
+  string languages = 7;
+  int32 forkCount = 8;
+  int32 starCount = 9;
+  int32 openIssues = 10;
+  int32 watchersCount = 11;
+  map<string, string> meta = 12; // Assuming `any` can be represented as a map of strings
+}
+
+// Request message for listGitRepositories
+message ListGitRepositoriesRequest {
+  // Add any necessary fields, e.g., pagination
+}
+
+// Response message for listGitRepositories
+message ListGitRepositoriesResponse {
+  repeated Repo repos = 1;
+}
+
+// Request message for getGitRepo
+message GetGitRepoRequest {
+  required string ownerName = 1;
+  required string repoName = 2;
+}
+
+// Response message for getGitRepo
+message GetGitRepoResponse {
+  Repo repo = 1;
+}
+
+// Define the GitService
+service GitService {
+  rpc ListGitRepositories (ListGitRepositoriesRequest) returns (ListGitRepositoriesResponse);
+  rpc GetGitRepo (GetGitRepoRequest) returns (GetGitRepoResponse);
+}
