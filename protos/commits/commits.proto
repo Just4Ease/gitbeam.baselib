@@ -35,6 +35,7 @@ message CommitFilterParams {
 message CommitByOwnerAndShaParams {
   string ownerName = 1;
   string repoName = 2;
+  string sha = 3;
 }
 
 message HealthCheckResponse {
