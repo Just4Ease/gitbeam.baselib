@@ -1,0 +1,58 @@
+syntax = "proto3";
+package commits;
+option go_package = ".;commits";
+
+message Void {}
+
+// Define the Repo message
+message Commit {
+  string date = 1;
+  string message = 2;
+  string author = 3;
+  string repoName = 4;
+  string ownerName = 5;
+  string url = 6;
+  string sha = 7;
+  repeated string parentCommitIDs = 8;
+  string meta = 9;
+}
+
+message TopCommitAuthor {
+  string author = 1;
+  int64 commitsCount = 2;
+}
+
+message CommitFilterParams {
+  int64 page = 1;
+  int64 limit = 2;
+  string owner_name = 3;
+  string repo_name = 4;
+  string fromDate = 5;
+  string toDate = 6;
+}
+
+
+message CommitByOwnerAndShaParams {
+  string ownerName = 1;
+  string repoName = 2;
+}
+
+message HealthCheckResponse {
+  int64 code = 1;
+}
+
+message ListCommitResponse {
+  repeated Commit data = 1;
+}
+
+message ListTopCommitAuthorResponse {
+  repeated TopCommitAuthor data = 1;
+}
+
+service GitBeamCommitsService {
+  rpc ListCommits (CommitFilterParams) returns (ListCommitResponse){}
+  rpc GetCommitByOwnerAndSHA (CommitByOwnerAndShaParams) returns (Commit){}
+  rpc ListTopCommitAuthor(CommitFilterParams) returns(ListTopCommitAuthorResponse){}
+  rpc HealthCheck(Void) returns(HealthCheckResponse){}
+}
+
