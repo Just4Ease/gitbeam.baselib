@@ -50,10 +50,25 @@ message ListTopCommitAuthorResponse {
   repeated TopCommitAuthor data = 1;
 }
 
+message MonitorRepositoryCommitsConfigParams {
+  string ownerName = 1;
+  string repoName = 2;
+  string fromDate = 3;
+  string toDate = 4;
+  int64 durationInHours = 5;
+}
+
+message StopMonitoringRepositoryCommitParams {
+  string ownerName = 1;
+  string repoName = 2;
+}
+
 service GitBeamCommitsService {
   rpc ListCommits (CommitFilterParams) returns (ListCommitResponse){}
   rpc GetCommitByOwnerAndSHA (CommitByOwnerAndShaParams) returns (Commit){}
   rpc ListTopCommitAuthor(CommitFilterParams) returns(ListTopCommitAuthorResponse){}
   rpc HealthCheck(Void) returns(HealthCheckResponse){}
+  rpc StartMonitoringRepositoryCommits(MonitorRepositoryCommitsConfigParams) returns(Void){}
+  rpc StopMonitoringRepositoryCommits(StopMonitoringRepositoryCommitParams) returns(Void){}
 }
 
