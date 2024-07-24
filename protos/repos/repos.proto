@@ -10,9 +10,9 @@ message Repo {
   string owner = 4;
   string description = 5;
   string url = 6;
-  string languages = 7;
-  int64 forkCount = 8;
-  int64 starCount = 9;
+  string language = 7;
+  int64 forkCounts = 8;
+  int64 starCounts = 9;
   int64 openIssues = 10;
   int64 watchersCount = 11;
   string meta = 12;
